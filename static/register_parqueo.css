@@ -1,0 +1,128 @@
+body {
+    background: #694da04b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura completa de la ventana */
+    margin: 0;
+    overflow: hidden;
+}
+
+.register-container {
+    max-width: 500px;
+    width: 100%; 
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    margin: 20px; 
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    
+}
+
+.btn {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+
+@media (max-width: 600px) {
+    .register-container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 15px; 
+    }
+
+    .btn {
+        width: 100%; 
+        
+    }
+}
+
+
+
+
+
+
+/*Dashboard */
+
+.dashboard-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+h1 {
+    margin-bottom: 20px;
+}
+
+
+/*Botones*/
+
+
+.btn-primary {
+    width: 100px;
+    padding: 5px;
+    border-radius: 50px;
+    background-color: #694da0c5;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra inicial */
+    
+}
+
+.btn-primary:hover
+{
+    background-color:#6c4cad;
+    transition: 1s;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra más fuerte al hacer hover */
+}
+
+.btn-primary:active{
+    background-color: #491ca3 !important;
+    transform: scale(0.88);
+    border: none;
+    border-color: none;
+}
+
+.btn-primary:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+
+.btn-secondary{
+    width: 150px;
+    padding: 5px;
+    background-color: gray;
+    outline: none;
+    border: none;
+}
+
+.btn-secondary:hover{
+    transition: 1s;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra más fuerte al hacer hover */
+    background-color: rgb(95, 94, 94);
+}
+
+.btn-secondary:active{
+    transform: scale(0.88);
+    border: none;
+    border-color: none;
+    background-color: rgb(61, 60, 60);
+}
+
+
+

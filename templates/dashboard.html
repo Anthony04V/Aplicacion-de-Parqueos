@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
+</head>
+<body>
+
+
+    <header class="header">
+		<div class="wrapper">
+			<div class="logo">ULACIT</div>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+		</div>
+	</header>
+
+    <section>
+        <div class="container">
+            <div class="dashboard-container">
+                <!-- Botón de Logout -->
+                
+    
+                <h1>Bienvenido, {{ user_name }}</h1>
+                <hr>
+                <p>Seleccione una opción para continuar:</p>
+                <a href="{{ url_for('register_user') }}" class="btn btn-primary">Registrar nuevo usuario</a>
+                <a href="{{ url_for('register_parqueo') }}" class="btn btn-primary">Registrar nuevo parqueo</a>
+            </div>
+        </div>
+
+    </section>
+ 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
