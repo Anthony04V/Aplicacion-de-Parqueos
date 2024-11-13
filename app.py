@@ -120,11 +120,25 @@ def register_parqueo():
             flash("Todos los campos son obligatorios.", "danger")
             return redirect(url_for('register_parqueo'))
 
+        
+
         try:
             # Conecta a la base de datos
             conn = get_db_connection()
             cursor = conn.cursor()
 
+
+            check_query = """
+            SELECT COUNT(*) FROM Parqueo WHERE Nombre_Parqueo = ? AND Ubicacion = ?
+                    """
+            cursor.execute(check_query, (Nombre_parqueo, Ubicacion))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # Si ya existe, muestra el mensaje de error y redirige
+                flash("No se pueden agregar nombres y ubicaciones repetidas. No es válido!!", "danger")
+                return redirect(url_for('register_parqueo'))
+            
             # Consulta de inserción
             insert_query = """
                 INSERT INTO Parqueo (Nombre_Parqueo, Ubicacion, Espacios_Carros, Espacios_Moto, Espacios_Ley7600)
@@ -144,7 +158,7 @@ def register_parqueo():
             conn.close()
 
         return redirect(url_for('register_parqueo'))
-    
+    # 
     return render_template("register_parqueo.html")
 
 
@@ -163,6 +177,7 @@ def register_user():
             conn = get_db_connection()
             cursor = conn.cursor()
 
+
             # Insertamos el la BSD un nuevo usuario con clave predeterminada "Ulacit123"
             insert_query = """
                 INSERT INTO Usuario (Nombre, Correo, FechaNacimiento, Identificacion, Clave, ClaveCambiada, RolID)
@@ -171,7 +186,7 @@ def register_user():
             cursor.execute(insert_query, (nombre, correo, fecha_nacimiento, identificacion, rol))
             conn.commit()
 
-            flash('Usuario registrado exitosamente. La contraseña predeterminada es "Ulacit123".', 'success')
+            flash('Usuario registrado exitosamente. La contraseña predeterminada es: Ulacit123', 'success')
             return redirect(url_for('register_user'))
         
         except pyodbc.IntegrityError as e:
