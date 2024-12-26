@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Parqueo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Select_parqueo.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+    <div class="container mt-5">
+        <h2>Bienvenido, {{ user_name }}</h2>
+        <h5>Selecciona el parqueo donde trabajaras hoy</h5>
+        <form method="POST" action="{{ url_for('select_parqueo') }}">
+            <div class="form-group">
+                <select name="parqueo_id" id="parqueo_id" class="form-control" required>
+                    {% for parqueo in parqueos %}
+                        <option value="{{ parqueo[0] }}">{{ parqueo[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Seleccionar</button>
+        </form>
+    </div>
+</body>
+</html>

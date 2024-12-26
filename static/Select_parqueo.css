@@ -1,62 +1,60 @@
 
+
 body {
+    margin: 0; /* Elimina márgenes predeterminados */
+    display: grid; /* Activa Grid */
+    place-items: center; /* Centra horizontal y verticalmente */
+    min-height: 80vh;
     background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
-    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-    background-position: center; /* Centra la imagen en la pantalla */
-	background-attachment: fixed ;
-    overflow: hidden; 
-	
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
-.semaforo-general {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    background-color: black; /* Color predeterminado */
-}
-
-.semaforo-general.verde {
-    background-color: green;
-}
-
-.semaforo-general.rojo {
-    background-color: red;
-}
-
-.container{
-	padding-top: 90px;
-	
-}
-
-/*Dashboard */
-
-.dashboard-container {
-    max-width: 600px;
-    margin: 100px auto;	
+.container {
+    max-width: 650px;
     padding: 30px;
     background-color: #694da07a;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     text-align: center;
-    position: relative;
-	color: white;
+    color: white;
 }
+
+
+
+header {
+	width:100%;
+	overflow: hidden;
+	background: #694da0a4;
+	margin-bottom:20px;
+}
+
+
+h2{
+    text-align: center !important;
+}
+/*Dashboard */
+
 h1 {
     margin-bottom: 20px;
+	text-align: center;
+    color: white;
 }
 .btn-primary {
     width: 200px;
     padding: 10px;
 	margin-inline:  25px;
     border-radius: 50px;
-    background-color: #694da0dc;
+    background-color: #694da0c5;
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 	
 }
 
+.Label1{
+    text-align: left !important; 
+}
 
 .btn-primary:hover
 {
@@ -78,6 +76,25 @@ h1 {
     outline: none !important;
 }
 
+.form-control{
+    align-items: center;
+    display: flexbox;
+    
+}
+
+/* CONTAINER*/
+
+
+/* FORMS */
+
+.form-control {
+    width: 100%; 
+    max-width: 250px; 
+    margin: 15px auto; /* Centra horizontalmente con auto */
+    display: block; /* Asegura que el elemento sea un bloque */
+}
+
+
 .logout-btn {
     position: absolute;
     top: 15px;
@@ -97,3 +114,4 @@ h1 {
     transform: scale(1) !important;
     background-color: rgba(255, 0, 0, 0.753);
 }
+

@@ -1,8 +1,11 @@
 DATABASE_CONFIG = {
     'driver': 'ODBC Driver 17 for SQL Server',
-    'server': 'DESKTOP-2AEP2HA\SQLEXPRESS',  # Servidor SQL en donde esta la BSD
-    'database': 'Proyecto_Parqueos',
+    'server': 'DESKTOP-AAV04',  # Ajusta según el nombre de tu servidor
+    'database': 'Proyecto_Parqueo',
     'trusted_connection': 'yes',
-    'username': '',  # Dejar vacío para autenticación de Windows / Cambiar si tiene usr y pwr
-    'password': ''   # Dejar vacío para autenticación de Windows
+    'username': '',  # Deja vacío para autenticación de Windows
+    'password': ''   # Deja vacío para autenticación de Windows
 }
+
+
+

@@ -6,8 +6,70 @@
     <title>Registrar parqueo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='register_parqueo.css') }}">
+
 </head>
 <body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = ['Espacios_Carros', 'Espacios_Moto', 'Espacios_Ley7600'];
+        
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+        
+                input.addEventListener('input', function() {
+                    // Verificar si hay operadores matemáticos
+                    const containsOperators = /[+\-*/]/.test(input.value);
+        
+                    if (containsOperators) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pueden ingresar operadores matemáticos.",
+                            showConfirmButton: false,
+                            timer: 1000  
+        
+                        input.value = input.value.replace(/[+\-*/]/g, '');
+                        return; // Terminar aquí para evitar validaciones innecesarias
+                    }
+        
+                    // Eliminar cualquier carácter que no sea numérico
+                    let sanitizedValue = input.value.replace(/[^0-9]/g, '');
+        
+                    // Aseguramos que esté dentro del rango permitido
+                    let value = parseInt(sanitizedValue || 0);
+                    if (value < 1) value = 0;
+                    if (value > 50) value = 50;
+        
+                    // Asigna el valor corregido al campo de entrada
+                    input.value = value;
+                    
+                });
+            });
+        });
+        
+    </script>
+
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                {% for category, message in messages %}
+                    Swal.fire({
+                        icon: "{{ 'error' if category == 'danger' else category }}",  // Cambia el ícono según la categoría
+                        title: "{{ 'Oops...' if category == 'danger' else '¡Éxito!' }}",
+                        text: "{{ message }}",
+                        showConfirmButton: true,
+                        timer: 5000  // Duración del mensaje
+                    });
+                {% endfor %}
+            });
+        </script>
+        
+        {% endif %}
+    {% endwith %}
+
     <header class="header">
         <div class="wrapper">
             <div class="logo"></div>
@@ -31,24 +93,26 @@
                     </div>
                     <div class="form-group">
                         <label for="fecha_nacimiento">Cantidad de espacios de carro</label>
-                        <input type="number" class="form-control" id="Espacios_Carros" name="Espacios_Carros" placeholder="Espacios carros" required>
+                        <input type="number" class="form-control" id="Espacios_Carros" name="Espacios_Carros" placeholder="Espacios carros" required min="1" max="50">
                     </div>
                     <div class="form-group">
                         <label for="identificacion">Cantidad de espacios de moto</label>
-                        <input type="number" class="form-control" id="Espacios_Moto" name="Espacios_Moto" placeholder="Espacios moto" required>
+                        <input type="number" class="form-control" id="Espacios_Moto" name="Espacios_Moto" placeholder="Espacios moto" required  min="1" max="50">
                     </div>
                     <div class="form-group">
                         <label for="identificacion">Cantidad de espacios de ley 7600</label>
-                        <input type="number" class="form-control" id="Espacios_Ley7600" name="Espacios_Ley7600" placeholder="Espacio Ley 7600" required>
+                        <input type="number" class="form-control" id="Espacios_Ley7600" name="Espacios_Ley7600" placeholder="Espacio Ley 7600" required  min="1" max="50">
                     </div>
                     <div class="btn-group">
+                        <a href="{{ url_for('menu') }}" class="btn btn-secondary">Volver</a>
                         <button type="submit" class="btn btn-primary">Registrar</button>
-                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Volver al Menú Principal</a>
+                        
                     </div>
                 </form>
             </div>
         </div>
     </section>
+   
 
     <!-- Scripts de SweetAlert y jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -56,24 +120,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Script para manejar los mensajes flash con SweetAlert -->
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                {% for category, message in messages %}
-                    Swal.fire({
-                        icon: "{{ 'error' if category == 'danger' else category }}",  // Cambia el ícono según la categoría
-                        title: "{{ 'Oops...' if category == 'danger' else '¡Éxito!' }}",
-                        text: "{{ message }}",
-                        showConfirmButton: true,
-                        timer: 5000  // Duración del mensaje
-                    });
-                {% endfor %}
-            });
-        </script>
-        
-        {% endif %}
-    {% endwith %}
 </body>
 </html>

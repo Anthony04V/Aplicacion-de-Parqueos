@@ -1,21 +1,22 @@
+
 body {
-    background: #694da04b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Altura completa de la ventana */
-    margin: 0;
-    overflow: hidden;
+    background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen en la pantalla */
+	background-attachment: fixed ;
+    overflow: hidden; 
+	
 }
 
 .register-container {
-    max-width: 500px;
+    max-width: 600px;
+    
+    margin-top: 150px;
     width: 100%; 
     padding: 15px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    margin: 20px; 
 }
 
 .btn-group {

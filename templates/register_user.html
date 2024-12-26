@@ -6,6 +6,7 @@
     <title>Registrar Usuario</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='register_parqueo.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header class="header">
@@ -18,27 +19,6 @@
         <div class="container">
             <div class="register-container">
                 <h1>Registrar Usuario</h1>
-
-                                <!-- Script para manejar los mensajes flash con SweetAlert -->
-                    {% with messages = get_flashed_messages(with_categories=True) %}
-                    {% if messages %}
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            {% for category, message in messages %}
-                                Swal.fire({
-                                    icon: "{{ 'error' if category == 'danger' else category }}",  // Cambia el ícono según la categoría
-                                    title: "{{ 'Oops...' if category == 'danger' else '¡Éxito!' }}",
-                                    text: "{{ message }}",
-                                    showConfirmButton: true,
-                                    
-                                });
-                            {% endfor %}
-                        });
-                    </script>
-                    
-                    {% endif %}
-                {% endwith %}
-
                 <form method="POST" action="{{ url_for('register_user') }}">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -65,18 +45,33 @@
                             <option value="4">Estudiante</option>
                         </select>
                     </div>
-                    <!-- Botones alineados y del mismo tamaño -->
                     <div class="btn-group">
+                        <a href="{{ url_for('menu')}}" class="btn btn-secondary">Volver</a>
                         <button type="submit" class="btn btn-primary">Registrar</button>
-                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Volver al Menú Principal</a>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Script para manejar los mensajes flash con SweetAlert -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <script>
+        {% for category, message in messages %}
+            Swal.fire({
+                icon: "{{ 'error' if category == 'danger' else category }}",
+                title: "{{ 'Oops...' if category == 'danger' else '¡Éxito!' }}",
+                text: "{{ message }}",
+                showConfirmButton: true
+            });
+        {% endfor %}
+    </script>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Cargar jQuery, Popper y Bootstrap al final -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Oficial de Seguridad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen en la pantalla */
+            background-attachment: fixed ;
+           
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+            max-width: 800px;
+        }
+        h2, h4 {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        h2 {
+            text-align: center;
+        }
+
+        /* Estilos del semáforo */
+        .semaforo-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 220px;
+            background: linear-gradient(145deg, #2d2d2d, #404040);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
+        }
+
+        .semaforo-circulo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: black;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8), 0 5px 10px rgba(0, 0, 0, 0.2);
+            margin: 8px 0;
+            transition: background-color 0.5s ease-in-out, transform 0.3s ease;
+        }
+
+        .semaforo-verde-activo {
+            background-color: #00ff00;
+            transform: scale(1.1);
+        }
+
+        .semaforo-rojo-activo {
+            background-color: #ff0000;
+            transform: scale(1.1);
+        }
+
+        .semaforo-circulo:hover {
+            transform: scale(1.2);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary {
+            width: 200px;
+            padding: 10px;
+            margin-inline:  25px;
+            border-radius: 50px;
+            background-color: #694da0dc;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            
+        }
+        
+        
+        .btn-primary:hover
+        {
+            background-color:#6c4cad;
+            transition: 1s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+        }
+        
+        .btn-primary:active{
+            background-color: #491ca3 !important;
+            transform: scale(0.88);
+            border: none;
+            border-color: none;
+            
+        }
+        
+        .btn-primary:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .btn-retirar {
+            background-color: #FF5733;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            font-size: 14px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+        .btn-retirar:hover {
+            background-color: #e74c3c;
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-volver {
+            color: white;
+            width: 150px;
+            padding: 10px;
+            margin-right: 10px; /* Espaciado entre botones */
+            border-radius: 50px;
+            background-color: #694da0dc;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-bitacora {
+            color: white;
+            width: 150px;
+            padding: 10px;
+            margin-left: 10px; /* Espaciado entre botones */
+            border-radius: 50px;
+            background-color: #694da0dc;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-volver:hover,
+        .btn-bitacora:hover {
+            color: white;
+            background-color: #6c4cad;
+            transition: 1s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+
+        /* Tablas */
+        table {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+        table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+        }
+        table td {
+            padding: 12px;
+            text-align: center;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Inputs y formularios */
+        .form-inline input {
+            width: auto;
+            display: inline-block;
+            margin-right: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul li {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Botón Volver -->
+        <a href="{{ url_for('select_parqueo') }}" class="btn btn-volver">Volver</a>
+       
+        <!-- Mensajes Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} mt-3">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Información del Parqueo -->
+        
+        <hr>
+        <h2>Detalles del Parqueo</h2>
+        <p><strong>Nombre:</strong> {{ parqueo["Nombre_Parqueo"] }}</p>
+        <p><strong>Ubicación:</strong> {{ parqueo["Ubicacion"] }}</p>
+
+        <!-- Semáforo general -->
+        <div class="semaforo-contenedor">
+            <div class="semaforo-circulo {% if semaforo_general == 'rojo' %}semaforo-rojo-activo{% elif semaforo_general == 'verde' %}semaforo-verde-activo{% endif %}"></div>
+        </div>
+
+        <!-- Espacios Disponibles -->
+        <h4>Espacios Disponibles</h4>
+        <ul>
+            <li><strong>Carros:</strong> {{ espacios_disponibles.carros }}</li>
+            <li><strong>Motos:</strong> {{ espacios_disponibles.motos }}</li>
+            <li><strong>Espacios Ley 7600:</strong> {{ espacios_disponibles.ley7600 }}</li>
+        </ul>
+        <hr>
+        <!-- Formulario para Ingresar Vehículo -->
+        <h4>Registrar Ingreso de Vehículo</h4>
+        <form action="{{ url_for('security_dashboard') }}" method="POST" class="mt-3">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="NumeroPlaca">Placa del Vehículo</label>
+                    <input type="text" class="form-control" id="NumeroPlaca" name="NumeroPlaca" placeholder="Ej: ABC123" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="tipo">Tipo de Vehículo</label>
+                    <select name="tipo" id="tipo" class="form-control" required>
+                        <option value="carro">Carro</option>
+                        <option value="moto">Moto</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="ley7600">Espacio Ley 7600</label>
+                    <select name="ley7600" id="ley7600" class="form-control" required>
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+            </div>
+            <form action="{{ url_for('security_dashboard') }}" method="POST" class="mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-primary">Registrar Vehículo</button>
+                    <a href="{{ url_for('bitacora') }}" class="btn btn-bitacora">Ver bitácora</a>
+                </div>
+            </form>
+            
+        </form>
+
+        <!-- Lista de Vehículos en el Parqueo -->
+        <div class="vehiculos-lista mt-5">
+            <h4 class="mb-4">Vehículos en el Parqueo</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Espacio Ley 7600</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehiculo in vehiculos_en_parqueo %}
+                        <tr>
+                            <td>{{ vehiculo[0] }}</td>
+                            <td>{{ vehiculo[1] }}</td>
+                            <td>{{ "Sí" if vehiculo[2] else "No" }}</td>
+                            <td>
+                                <form action="{{ url_for('security_dashboard') }}" method="POST" style="display: inline-block;">
+                                    <input type="hidden" name="retirar_placa" value="{{ vehiculo[0] }}">
+                                    <input type="hidden" name="tipo_retirar" value="{{ vehiculo[1] }}">
+                                    <button type="submit" class="btn btn-retirar btn-sm">Retirar</button>
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

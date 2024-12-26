@@ -1,0 +1,172 @@
+body {
+    background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen en la pantalla */
+    background-attachment: fixed ;
+    overflow: hidden; 
+}
+
+.container {
+    max-width: 900px;
+    margin-top: 80px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    max-height: 350px; 
+    overflow-y: auto; 
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    scrollbar-color: white #694da04b;
+    scrollbar-width: thin;
+}
+
+/*Botones*/
+
+.btn-tertiary{
+    left: 400px !important;
+}
+
+.btn-primary {
+    width: 220px;
+	margin-inline: 0px;
+    border: none;
+    background-color: transparent !important; 
+    border-bottom: 2px solid #694da0c5;
+    color: #694da0;
+    border-radius: 5px;
+    position: absolute;
+	left: 650px;
+    font-weight: bold;
+}
+
+.btn-primary:hover
+{
+    background-color:#6c4cad !important;
+    transition: 1s;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.4); /* Sombra más fuerte al hacer hover */
+    color: white;
+    border: none;
+}
+.btn-primary:active
+{
+    background-color: #6c4cad !important;
+    outline: none !important;
+    transform: scale(0.88);
+    border: none !important;
+    border-color: none;
+}
+
+
+
+.btn-primary-filtrar{
+    width: 100px;
+    background-color: transparent !important; 
+    color: #333; 
+    outline: none;
+    border: none;
+    border-radius: 5px !important;
+    border-bottom: 2px solid #333 !important; 
+    padding: 5px;
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btn-primary-filtrar:hover{
+    transition: 1s;
+    color: #ffffff; 
+    border-bottom: 2px solid #ffffff; 
+    background-color: #333 !important;
+}
+
+.btn-primary-filtrar:active{
+    color: #ffffff; 
+    background-color: #333 !important;
+    transform: scale(0.88);
+    border-bottom: 2px solid #ffffff; 
+}
+
+
+.btn-secondary {
+    width: 100px;
+    background-color: transparent; 
+    color: #333; 
+    margin: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #333; 
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 5px;
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    transition: 1s;
+    color: #ffffff; 
+    border-bottom: 2px solid #ffffff; 
+    background-color: #333;
+}
+
+.btn-secondary:active {
+    background-color: #694da0;
+    transform: scale(0.88);
+    border-bottom: 2px solid #ffffff; /* Mantener el color del borde inferior */
+}
+
+
+
+
+
+
+/*BTN de Salir*/
+
+
+.logout-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    background-color: rgba(255, 0, 0, 0.795);
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    transition: 0.8s;   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+.logout-btn:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+}   
+
+.logout-btn:active{
+    transform: scale(1) !important;
+    background-color: rgba(255, 0, 0, 0.753);
+}
+
+
+.btn-info{
+    background-color: #777777c5;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra inicial */
+}
+
+.btn-info:hover{
+    background-color: #2c2c2cc5;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efecto de sombra inicial */
+}
+
+.btn-info:active{
+    background-color: #333 !important;
+    border: none !important;
+    outline: none !important;
+    border-color: none !important;
+}

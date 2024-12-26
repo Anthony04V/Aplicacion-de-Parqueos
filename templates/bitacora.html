@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitácora del Sistema</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen en la pantalla */
+            background-attachment: fixed ;
+         
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
+        h2 {
+            text-align: center;
+            color: #343a40;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+        }
+        .form-inline {
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .form-control {
+            border-radius: 20px;
+            border: 1px solid #ced4da;
+        }
+        .btn-primary {
+            width: 150px;
+            background-color: #6c4cad;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-primary:hover,
+        .btn:hover {
+            background-color: #5a3e9d;
+            transform: scale(1.05);
+        }
+        .table {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .thead-dark th {
+            background-color: #343a40;
+            color: white;
+        }
+        table td {
+            padding: 12px;
+            text-align: center;
+            color: #495057;
+        }
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .btn {
+            margin-top: 20px;
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            background-color: #6c4cad;
+            color: white;
+            font-weight: bold;
+            padding: 8px 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Título -->
+        <h2>Bitácora del Sistema</h2>
+        <p>Registro de movimientos de vehículos en los parqueos</p>
+        <hr>
+
+        <form method="POST" action="{{ url_for('bitacora') }}" class="form-inline justify-content-center mb-4">
+            <div class="form-group mr-2">
+                <label for="month" class="mr-2">Mes:</label>
+                <select id="month" name="month" class="form-control">
+                    <option value="">Todos</option>
+                    {% for i in range(1, 13) %}
+                    <option value="{{ i }}" {% if selected_month and selected_month|int == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group mr-2">
+                <label for="year" class="mr-2">Año:</label>
+                <select id="year" name="year" class="form-control">
+                    <option value="">Todos</option>
+                    {% for year in range(2020, 2025) %}
+                    <option value="{{ year }}" {% if selected_year and selected_year|int == year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary ml-2">Filtrar</button>
+        </form>
+        
+        <!-- Tabla de Bitácora -->
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Placa del Vehículo</th>
+                    <th>Fecha</th>
+                    <th>Movimiento</th>
+                    <th>Estado de Ingreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bitacora in bitacoras %}
+                <tr>
+                    <td>{{ bitacora[0] }}</td>
+                    <td>{{ bitacora[1] }}</td>
+                    <td>{{ bitacora[2] | datetimeformat }}</td>
+                    <td>{{ bitacora[3] }}</td>
+                    <td>{{ bitacora[4] if bitacora[4] is not none else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Botón para volver -->
+        <a href="{{ url_for('security_dashboard') }}" class="btn">Volver al Dashboard</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

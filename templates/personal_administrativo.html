@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Personal Administrativo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen en la pantalla */
+            background-attachment: fixed ;
+            overflow: hidden; 
+        }
+        
+
+        /* Contenedor principal */
+        .container {
+            margin-top: 150px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Encabezados */
+        h2 {
+            color: #444;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            color: #666;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #eaeaea;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+            transition: all 0.3s ease;
+        }
+
+        /* Botones */
+        .btn {
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+
+        /* Formularios */
+        .form-inline .form-control {
+            border-radius: 5px;
+            padding: 8px;
+            margin-right: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+
+        .form-inline .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-size: 1.1em;
+            color: #999;
+            margin: 20px 0;
+        }
+
+
+            
+        .logout-btn {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            background-color: rgba(255, 0, 0, 0.795);
+            outline: none;
+            border: none;
+            border-radius: 50px;
+            transition: 0.8s;   
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+        .logout-btn:hover{
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); 
+        }   
+
+        .logout-btn:active{
+            transform: scale(1) !important;
+            background-color: rgba(255, 0, 0, 0.753);
+        }
+
+
+  
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bienvenido, {{ user_name }}</h2>
+
+        <!-- Tabla de Vehículos -->
+        <h4>Vehículos Registrados</h4>
+        {% if vehiculos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Color</th>
+                    <th>Número de Placa</th>
+                    <th>Espacio 7600</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehiculo in vehiculos %}
+                <tr>
+                    <td>{{ vehiculo.Marca }}</td>
+                    <td>{{ vehiculo.Color }}</td>
+                    <td>{{ vehiculo.NumeroPlaca }}</td>
+                    <td>{{ 'Sí' if vehiculo.UsaEspacioLey7600 else 'No' }}</td>
+                    <td>{{ vehiculo.Tipo }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-message">No tienes vehículos asignados a tu nombre.</p>
+        {% endif %}
+
+        <!-- Filtro para Historial -->
+        <h4>Historial de Ingresos</h4>
+        <form method="POST" action="{{ url_for('student_dashboard') }}" class="form-inline justify-content-center mb-4">
+            <select id="month" name="month" class="form-control">
+                <option value="">Mes</option>
+                {% for i in range(1, 13) %}
+                <option value="{{ i }}" {% if selected_month and selected_month|int == i %}selected{% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+            <select id="year" name="year" class="form-control">
+                <option value="">Año</option>
+                {% for year in range(2020, 2025) %}
+                <option value="{{ year }}" {% if selected_year and selected_year|int == year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <!-- Tabla de Historial -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Placa</th>
+                    <th>Fecha</th>
+                    <th>Movimiento</th>
+                    <th>Estado de Ingreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if historial %}
+                {% for registro in historial %}
+                <tr>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] | datetimeformat }}</td>
+                    <td>{{ registro[3] }}</td>
+                    <td>{{ registro[4] }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5" class="empty-message">No hay registros en el historial.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+    </div>
+
+
+</body>
+</html>

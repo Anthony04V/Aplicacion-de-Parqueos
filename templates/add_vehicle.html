@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Vehículo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+
+    <style>
+       
+        body {
+            background-image: url("https://revistasumma.com/wp-content/uploads/2022/06/ulacit-scaled-1.jpg");
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen en la pantalla */
+            background-attachment: fixed ;
+            overflow: hidden; 
+            
+        }
+        .container {
+            margin-top: 150px;
+            margin-left: 250px;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        h2 {
+            color: #333;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        /*BOTONES*/
+        
+        .btn-primary {
+            width: 200px;
+            padding: 10px;
+            margin-inline:  25px;
+            border: none;
+            background-color: transparent; 
+            border-bottom: 2px solid #694da0c5;
+            color: #694da0;
+            font-weight: bold;
+            border-radius: 5px
+            
+        }
+        
+        
+        .btn-primary:hover
+        {
+            transition: 1s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            background-color: #694da0; 
+            border: none;
+        }
+        
+        .btn-primary:active{
+            background-color:#694da0 !important;
+            transform: scale(0.88);
+            border: none;
+            border-color: none;
+            
+        }
+        
+        .btn-primary:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        
+        .btn-secondary {
+            width: 150px;
+            background-color: transparent; 
+            color: #333; 
+            margin-left: 100px;
+            outline: none;
+            border: none;
+            border-bottom: 2px solid #333; 
+            font-weight: bold;
+            padding: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            transition: 1s;
+            color: #ffffff; 
+            border-bottom: 2px solid #ffffff; 
+            background-color: #333;
+        }
+        
+        .btn-secondary:active {
+            background-color: #694da0;
+            transform: scale(0.88);
+            border-bottom: 2px solid #ffffff; /* Mantener el color del borde inferior */
+        }
+        
+        .btn-secondary:focus {
+            outline: none;
+        }
+        
+    </style>
+    <script>
+        function toggleLey7600() {
+            const tipoSelect = document.getElementById("tipo");
+            const ley7600Checkbox = document.getElementById("ley7600-group");
+            ley7600Checkbox.style.display = tipoSelect.value === "carro" ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>Añadir Vehículo</h2>
+    <form method="post" action="{{ url_for('add_vehicle', user_id=user_id) }}">
+        <div class="form-group">
+            <label>Marca</label>
+            <input type="text" name="marca" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Color</label>
+            <input type="text" name="color" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Número de Placa</label>
+            <input type="text" name="numero_placa" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Tipo</label>
+            <select name="tipo" id="tipo" class="form-control" onchange="toggleLey7600()">
+                <option value="carro">Carro</option>
+                <option value="moto">Moto</option>
+            </select>
+        </div>
+        <div class="form-group" id="ley7600-group" style="display: block;">
+            <input type="checkbox" name="UsaEspacioLey7600" id="UsaEspacioLey7600">
+            <label for="UsaEspacioLey7600">Usa espacio Ley 7600</label> 
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar Vehículo</button>
+        <a href="{{ url_for('user_profile', user_id=user_id) }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+    
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <script>
+        {% for category, message in messages %}
+            Swal.fire({
+                icon: "{{ 'error' if category == 'danger' else category }}",
+                title: "{{ 'Oops...' if category == 'danger' else '¡Éxito!' }}",
+                text: "{{ message }}",
+                showConfirmButton: true
+            });
+        {% endfor %}
+    </script>
+    {% endif %}
+    {% endwith %}
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>

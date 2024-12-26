@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehículos Registrados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Vehículos Registrados de {{ user.Nombre }}</h2>
+        
+        {% if vehicles %}
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Color</th>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehicle in vehicles %}
+                    <tr>
+                        <td>{{ vehicle.Marca }}</td>
+                        <td>{{ vehicle.Color }}</td>
+                        <td>{{ vehicle.NumeroPlaca }}</td>
+                        <td>{{ vehicle.Tipo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">No tiene vehículos asociados.</p>
+        {% endif %}
+
+        <a href="{{ url_for('user_profile', user_id=user.UsuarioID) }}" class="btn btn-primary mt-3">Volver al Perfil</a>
+    </div>
+</body>
+</html>

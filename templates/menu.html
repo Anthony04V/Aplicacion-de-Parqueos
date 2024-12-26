@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+
+
+    
+</head>
+<body>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
+    <div class="container">
+        <div class="button-group mb-3">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Volver</a>
+            <a href="{{ url_for('register_parqueo') }}" class="btn btn-tertiary btn-primary">Registrar nuevo parqueo</a>
+            <a href="{{ url_for('register_user') }}" class="btn btn-primary">Registrar nuevo usuario</a>
+        </div>
+
+        <h1>Lista de Usuarios</h1>
+        <form method="get" action="{{ url_for('menu') }}" class="mb-3">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por nombre" value="{{ search_query if search_query }}">
+                </div>
+                <div class="col">
+                    <select name="role" class="form-control">
+                        <option value="">Todos los Roles</option>
+                        <option value="1" {% if selected_role == '1' %}selected{% endif %}>Administrador</option>
+                        <option value="2" {% if selected_role == '2' %}selected{% endif %}>Oficial de Seguridad</option>
+                        <option value="3" {% if selected_role == '3' %}selected{% endif %}>Profesor</option>
+                        <option value="4" {% if selected_role == '4' %}selected{% endif %}>Estudiante</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn-primary-filtrar">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+
+        <!-- Contenedor de la tabla con desplazamiento -->
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Vehiculos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.UsuarioID }}</td>
+                        <td>{{ user.Nombre }}</td>
+                        <td>{{ user.Correo }}</td>
+                        <td>{{ user.NombreRol }}</td>
+                        <td>
+                            <a href="{{ url_for('user_profile', user_id=user.UsuarioID) }}" class="btn btn-info btn-sm ">Ver Perfil</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

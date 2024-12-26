@@ -3,40 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Admin</title>
+    <title>Mi Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
-
 </head>
 <body>
+    <div class="container mt-5">
+        <h1>Bienvenido, {{ user_name }}</h1>
+        <hr>
+        <h2>Mis Vehículos</h2>
+        
+        {% if vehicles %}
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Color</th>
+                        <th>Número de Placa</th>
+                        <th>Tipo</th>
+                        <th>Usa Ley 7600</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehicle in vehicles %}
+                        <tr>
+                            <td>{{ vehicle.Marca }}</td>
+                            <td>{{ vehicle.Color }}</td>
+                            <td>{{ vehicle.NumeroPlaca }}</td>
+                            <td>{{ vehicle.Tipo }}</td>
+                            <td>{{ 'Sí' if vehicle.UsaLey7600 else 'No' }}</td>
+                            <td>{{ vehicle.Estado }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No tienes vehículos registrados.</p>
+        {% endif %}
 
-
-    <header class="header">
-		<div class="wrapper">
-			<div class="logo">ULACIT</div>
-            <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Cerrar Sesión</a>
-		</div>
-	</header>
-
-    <section>
-        <div class="container">
-            <div class="dashboard-container">
-                <!-- Botón de Logout -->
-                
-    
-                <h1>Bienvenido, {{ user_name }}</h1>
-                <hr>
-                
-               
-                
-            </div>
-        </div>
-
-    </section>
- 
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <a href="{{ url_for('register_vehicle') }}" class="btn btn-primary mt-3">Registrar Nuevo Vehículo</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary mt-3">Cerrar Sesión</a>
+    </div>
 </body>
 </html>
